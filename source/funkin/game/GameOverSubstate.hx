@@ -90,6 +90,9 @@ class GameOverSubstate extends MusicBeatSubstate
 		DiscordUtil.changePresence('Game Over', PlayState.SONG.meta.displayName + " (" + PlayState.difficulty + ")");
 
 		gameoverScript.call("postCreate");
+
+		addVirtualPad('NONE', 'A_B');
+		addVirtualPadCamera(false);
 	}
 
 	override function update(elapsed:Float)
