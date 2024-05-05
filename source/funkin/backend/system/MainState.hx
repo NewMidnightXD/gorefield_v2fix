@@ -8,6 +8,9 @@ import funkin.menus.TitleState;
 import funkin.menus.LaguageSelectorScreen;
 import funkin.backend.chart.EventsData;
 import flixel.FlxState;
+#if mobile
+import mobile.states.CopyState;
+#end
 
 /**
  * Simple state used for loading the game
@@ -17,8 +20,18 @@ class MainState extends FlxState {
 	public static var betaWarningShown:Bool = false;
 	public override function create() {
 		super.create();
+		funkin.backend.system.Main.framerateSprite.setScale();
 		if (!initiated)
+		{
 			Main.loadGameSettings();
+		        #if mobile
+			if (CopyState.checkExistingFiles())
+			{
+				FlxG.switchState(new CopyState());
+				return;
+			}
+			#end
+		}
 		initiated = true;
 
 		#if sys
