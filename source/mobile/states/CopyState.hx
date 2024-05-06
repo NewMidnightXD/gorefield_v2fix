@@ -13,7 +13,6 @@ import funkin.backend.assets.Paths;
 import funkin.backend.utils.NativeAPI;
 import sys.FileSystem;
 import sys.io.File;
-import mobile.backend.SUtil;
 import flixel.util.FlxColor;
 #if (target.threaded)
 import sys.thread.Thread;
