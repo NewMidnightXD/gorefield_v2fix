@@ -76,8 +76,6 @@ class Main extends Sprite
 		instance = this;
 
 		CrashHandler.init();
-
-		doPermissionsShit();
 		
 		#if android
 		if (VERSION.SDK_INT > 30)
@@ -204,16 +202,6 @@ class Main extends Sprite
 
 		if (FlxG.game.soundTray != null)
 			FlxG.game.soundTray.text.setTextFormat(new TextFormat(Paths.font("vcr.ttf")));
-	}
-
-	public static function doPermissionsShit():Void
-	{
-		if (!Permissions.getGrantedPermissions().contains(Permissions.READ_EXTERNAL_STORAGE)
-			&& !Permissions.getGrantedPermissions().contains(Permissions.WRITE_EXTERNAL_STORAGE))
-		{
-			Permissions.requestPermission(Permissions.READ_EXTERNAL_STORAGE);
-			Permissions.requestPermission(Permissions.WRITE_EXTERNAL_STORAGE);
-		}
 	}
 	
 	public static function initTransition() {
