@@ -54,7 +54,7 @@ class ModsFolder {
 	 * Initialises `mods` folder by adding callbacks and such.
 	 */
 	public static function init() {
-		
+
 	}
 
 	/**
