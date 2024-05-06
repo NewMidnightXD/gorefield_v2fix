@@ -13,6 +13,7 @@ import flixel.util.FlxColor;
 import funkin.options.keybinds.KeybindsOptions;
 import funkin.menus.StoryMenuState;
 import funkin.backend.utils.FunkinParentDisabler;
+import mobile.substates.MobileControlSelectSubState;
 
 class PauseSubState extends MusicBeatSubstate
 {
@@ -36,6 +37,8 @@ class PauseSubState extends MusicBeatSubstate
 	}
 
 	var parentDisabler:FunkinParentDisabler;
+	var canOpen:Bool = true;
+
 	override function create()
 	{
 		super.create();
@@ -107,6 +110,9 @@ class PauseSubState extends MusicBeatSubstate
 		pauseScript.call("postCreate");
 
 		PlayState.instance.updateDiscordPresence();
+
+		addVirtualPad('UP_DOWN', 'A_B');
+		addVirtualPadCamera();
 	}
 
 	override function update(elapsed:Float)
@@ -149,8 +155,9 @@ class PauseSubState extends MusicBeatSubstate
 				PlayState.instance.registerSmoothTransition();
 				FlxG.resetState();
 			case "Change Controls":
-				persistentDraw = false;
-				openSubState(new KeybindsOptions());
+				var daSubstate:Class<MusicBeatSubstate> = MobileControls.mobileC ? MobileControlSelectSubState : KeybindsOptions;
+					openSubState(Type.createInstance(daSubstate, MobileControls.mobileC ? [()->camVPad.visible = true, ()->camVPad.visible = false] : []));
+			// case "Chart Editor":
 			case "Change Options":
 				FlxG.switchState(new OptionsMenu());
 			case "Exit to charter":
