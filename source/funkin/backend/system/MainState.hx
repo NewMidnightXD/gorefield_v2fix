@@ -8,9 +8,6 @@ import funkin.menus.TitleState;
 import funkin.menus.LaguageSelectorScreen;
 import funkin.backend.chart.EventsData;
 import flixel.FlxState;
-#if mobile
-import mobile.states.CopyState;
-#end
 
 /**
  * Simple state used for loading the game
