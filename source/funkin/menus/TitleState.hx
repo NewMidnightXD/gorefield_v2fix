@@ -220,17 +220,13 @@ function skipIntro() {
 
 
 override function update(elapsed:Float) {
-	var pressedEnter:Bool = FlxG.keys.justPressed.ENTER;
+	var pressedEnter:Bool = controls.ACCEPT;
 
-	#if mobile
-		for (touch in FlxG.touches.list)
-		{
-			if (touch.justPressed)
-			{
-				pressedEnter = true;
-			}
-		}
-	#end
+	if (MobileControls.mobileC) {
+			for (touch in FlxG.touches.list)
+					if (touch.justPressed)
+							pressedEnter = true;
+	}
 	
 	if (FlxG.sound.music != null)
 		Conductor.songPosition = FlxG.sound.music.time;
