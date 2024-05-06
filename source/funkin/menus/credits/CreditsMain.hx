@@ -41,7 +41,7 @@ class CreditsMain extends TreeMenu {
 			CoolUtil.openURL("https://ninja-muffin24.itch.io/funkin");
 		}));
 
-		main = new OptionsScreen('Credits', 'The people who made this possible!', selectables);
+		main = new OptionsScreen('Credits', 'The people who made this possible!', selectables, 'UP_DOWN', 'A_B');
 		super.create();
 	}
 
@@ -88,7 +88,7 @@ class CreditsMain extends TreeMenu {
 
 					case "menu":
 						credsMenus.push(new TextOption(name + " >", desc, function() {
-							optionsTree.add(new OptionsScreen(name, desc, parseCreditsFromXML(node, source)));
+							optionsTree.add(new OptionsScreen(name, desc, parseCreditsFromXML(node, source), 'UP_DOWN', 'A_B'));
 						}));
 				}
 			}
