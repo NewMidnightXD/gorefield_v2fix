@@ -16,7 +16,7 @@ class CrashHandler
 {
 	public static function init():Void
 	{
-		openfl.Lib.current.loaderInfo.uncaughtErrorEvents.addEventListener(UncaughtErrorEvent.UNCAUGHT_ERROR, onUncaughtError);
+		openfl.Lib.current.loaderInfo.uncaughtErrorEvents.addEventListener(UncaughtErrorEvent.UNCAUGHT_ERROR, onError);
 		#if cpp
 		untyped __global__.__hxcpp_set_critical_error_handler(onCriticalError);
 		#elseif hl
