@@ -27,6 +27,8 @@ import funkin.backend.utils.DiscordUtil;
 import funkin.backend.shaders.GlowShader;
 import funkin.backend.shaders.HeatWaveShader;
 import funkin.backend.shaders.GlitchShader;
+import mobile.substates.MobileControlSelectSubState;
+
 using StringTools;
 
 class MainMenuState extends MusicBeatState
@@ -436,13 +438,13 @@ override function update(elapsed:Float) {
 	progInfoText.x = boxSprite.x * 3.6;
 	progInfoText.y = boxSprite.y + 140;
 
-	if (FlxG.keys.justPressed.SEVEN && FlxG.save.data.dev) {
+	if (FlxG.keys.justPressed.SEVEN || virtualPad.buttonE.justPressed && FlxG.save.data.dev) {
 		persistentUpdate = !(persistentDraw = true);
 		openSubState(new EditorPicker());
 	}
 
 	#if !GOREFIELD_CUSTOM_BUILD
-	if (controls.SWITCHMOD) {
+	if (controls.SWITCHMOD || virtualPad.buttonM.justPressed) {
 		openSubState(new ModSwitchMenu());
 		persistentUpdate = !(persistentDraw = true);
 	}
