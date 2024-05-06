@@ -39,7 +39,7 @@ class ModsFolder {
 	/**
 	 * Path to the `addons` folder.
 	 */
-	public static var addonsPath:String = SUtil.getStorageDirectory(true) + "./addons/";
+	public static var addonsPath:String = "./addons/";
 
 	/**
 	 * If accessing a file as assets/data/global/LIB_mymod.hx should redirect to mymod:assets/data/global.hx
