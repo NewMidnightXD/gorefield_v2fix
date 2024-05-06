@@ -75,13 +75,6 @@ class Main extends Sprite
 
 		instance = this;
 
-		#if mobile
-		#if android
-		SUtil.doPermissionsShit();
-		#end
-		Sys.setCwd(SUtil.getStorageDirectory(false));
-		#end
-
 		CrashHandler.init();
 
 		#if !html5 framerateSprite = new funkin.backend.system.framerate.Framerate(); #end
@@ -172,12 +165,12 @@ class Main extends Sprite
 		#if (sys && TEST_BUILD)
 			trace("Used cne test / cne build. Switching into source assets.");
 			#if MOD_SUPPORT
-				ModsFolder.modsPath = Sys.getCwd() + '${pathBack}mods/';
-				ModsFolder.addonsPath = Sys.getCwd() + '${pathBack}addons/';
+				ModsFolder.modsPath = './${pathBack}mods/';
+				ModsFolder.addonsPath = './${pathBack}addons/';
 			#end
-			Paths.assetsTree.__defaultLibraries.push(ModsFolder.loadLibraryFromFolder('assets', Sys.getCwd() + '${pathBack}assets/', true));
+			Paths.assetsTree.__defaultLibraries.push(ModsFolder.loadLibraryFromFolder('assets', './${pathBack}assets/', true));
 		#elseif USE_ADAPTED_ASSETS
-			Paths.assetsTree.__defaultLibraries.push(ModsFolder.loadLibraryFromFolder('assets', #if mobile SUtil.getStorageDirectory() + #else Sys.getCwd() + #end 'assets/', true));
+			Paths.assetsTree.__defaultLibraries.push(ModsFolder.loadLibraryFromFolder('assets', './assets/', true));
 		#end
 
 
