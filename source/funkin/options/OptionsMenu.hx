@@ -6,6 +6,8 @@ import haxe.xml.Access;
 import funkin.options.type.*;
 import funkin.options.categories.*;
 import funkin.options.TreeMenu;
+import haxe.ds.Map;
+import mobile.flixel.FlxVirtualPad;
 
 class OptionsMenu extends TreeMenu {
 	public static var mainOptions:Array<OptionCategory> = [
@@ -13,22 +15,27 @@ class OptionsMenu extends TreeMenu {
 			name: 'Controls',
 			desc: 'Change Controls for Player 1 and Player 2!',
 			state: null,
-			substate: funkin.options.keybinds.KeybindsOptions
+			substate: funkin.options.keybinds.KeybindsOptions,
 		},
 		{
 			name: 'Gameplay >',
 			desc: 'Change Gameplay options such as Downscroll, Scroll Speed, Naughtyness...',
-			state: GameplayOptions
+			state: GameplayOptions,
 		},
 		{
 			name: 'Appearance >',
 			desc: 'Change Appearance options such as Flashing menus...',
-			state: AppearanceOptions
+			state: AppearanceOptions,
+		},
+		{
+			name: 'Mobile Options >',
+			desc: 'Change Options Related To Mobile & Mobile Controls',
+			state: mobile.options.categories.MobileOptions,
 		},
 		{
 			name: 'Miscellaneous >',
 			desc: 'Use this menu to reset save data or engine settings.',
-			state: MiscOptions
+			state: MiscOptions,
 		}
 	];
 
@@ -52,17 +59,15 @@ class OptionsMenu extends TreeMenu {
 			if (o.substate != null) {
 				persistentUpdate = false;
 				persistentDraw = true;
-				if (o.substate is MusicBeatSubstate) {
+				if (o.substate is MusicBeatSubstate)
 					openSubState(o.substate);
-				} else {
+				else
 					openSubState(Type.createInstance(o.substate, []));
-				}
 			} else {
-				if (o.state is OptionsScreen) {
+				if (o.state is OptionsScreen)
 					optionsTree.add(o.state);
-				} else {
+				else
 					optionsTree.add(Type.createInstance(o.state, []));
-				}
 			}
 		})]);
 		
@@ -81,7 +86,9 @@ class OptionsMenu extends TreeMenu {
 						main.add(o);
 			}
 		}
-		
+
+                addVirtualPad('UP_DOWN', 'A_B');
+		addVirtualPadCamera(false);
 	}
 
 	public override function exit() {
@@ -93,6 +100,7 @@ class OptionsMenu extends TreeMenu {
 	/**
 	 * XML STUFF
 	 */
+        var vpadMap:Map<String, Array<String>> = new Map();
 	public function parseOptionsFromXML(xml:Access):Array<OptionType> {
 		var options:Array<OptionType> = [];
 
@@ -137,8 +145,14 @@ class OptionsMenu extends TreeMenu {
 					
 				case "menu":
 					options.push(new TextOption(name + " >", desc, function() {
-						optionsTree.add(new OptionsScreen(name, desc, parseOptionsFromXML(node)));
+						optionsTree.add(new OptionsScreen(name, desc, parseOptionsFromXML(node), , vpadMap.exists(name) ? vpadMap.get(name)[0] : 'NONE', vpadMap.exists(name) ? vpadMap.get(name)[1] : 'NONE'));
 					}));
+					case "virtualPad":
+					var arr = [
+						node.getAtt("dpadMode") == null ? MusicBeatState.instance.virtualPad.curDPadMode.getName() : node.getAtt("dpadMode"), 
+						node.getAtt("actionMode") == null ? MusicBeatState.instance.virtualPad.curActionMode.getName() : node.getAtt("actionMode")
+					];
+					vpadMap.set(node.getAtt("menuName"), arr);
 			}
 		}
 
