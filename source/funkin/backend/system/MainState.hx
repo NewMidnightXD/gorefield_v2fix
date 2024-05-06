@@ -32,7 +32,7 @@ class MainState extends FlxState {
 		initiated = true;
 
 		#if sys
-		CoolUtil.deleteFolder('.temp/'); // delete temp folder
+		CoolUtil.deleteFolder('./.temp/'); // delete temp folder
 		#end
 		Options.save();
 
