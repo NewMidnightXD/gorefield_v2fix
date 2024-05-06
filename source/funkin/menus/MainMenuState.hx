@@ -499,6 +499,12 @@ override function update(elapsed:Float) {
 
 var bgTween:FlxTween;
 
+override function closeSubState() {
+		super.closeSubState();
+		removeVirtualPad();
+		addVirtualPad('UP_DOWN', 'A_B_M_E');
+}
+
 override function beatHit(curBeat:Int) {
 	super.beatHit(curBeat);
 	logoBl.animation.play('bump',true);
