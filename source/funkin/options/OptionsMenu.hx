@@ -145,7 +145,7 @@ class OptionsMenu extends TreeMenu {
 					
 				case "menu":
 					options.push(new TextOption(name + " >", desc, function() {
-						optionsTree.add(new OptionsScreen(name, desc, parseOptionsFromXML(node), , vpadMap.exists(name) ? vpadMap.get(name)[0] : 'NONE', vpadMap.exists(name) ? vpadMap.get(name)[1] : 'NONE'));
+						optionsTree.add(new OptionsScreen(name, desc, parseOptionsFromXML(node), vpadMap.exists(name) ? vpadMap.get(name)[0] : 'NONE', vpadMap.exists(name) ? vpadMap.get(name)[1] : 'NONE'));
 					}));
 					case "virtualPad":
 					var arr = [
