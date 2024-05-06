@@ -131,7 +131,7 @@ class SystemInfo extends FramerateCategory {
 	}
 
 	static function formatSysInfo() {
-		__formattedSysText = #if android 'Device: ${Build.BRAND.charAt(0).toUpperCase() + Build.BRAND.substring(1)} ${Build.MODEL} (${Build.BOARD})\n' #else "" #end;;
+		__formattedSysText = #if android 'Device: ${Build.BRAND.charAt(0).toUpperCase() + Build.BRAND.substring(1)} ${Build.MODEL} (${Build.BOARD})\n' #else "" #end;
 		if (osInfo != "Unknown") __formattedSysText += 'System: $osInfo';
 		if (cpuName != "Unknown") __formattedSysText += '\nCPU: $cpuName ${getCPUArch()}';
 		if (gpuName != cpuName || vRAM != "Unknown") {
