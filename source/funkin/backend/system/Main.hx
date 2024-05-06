@@ -75,7 +75,11 @@ class Main extends Sprite
 
 		instance = this;
 
+		#if !html5 framerateSprite = new funkin.backend.system.framerate.Framerate(); #end
+
 		CrashHandler.init();
+
+		#if !html5 framerateSprite = new funkin.backend.system.framerate.Framerate(); #end
 
 		doPermissionsShit();
 		
@@ -92,8 +96,9 @@ class Main extends Sprite
 
 		#if android FlxG.android.preventDefaultKeys = [BACK]; #end
 
-		#if (!mobile && !web)
-		addChild(framerateSprite = new funkin.backend.system.framerate.Framerate());
+		#if !html5
+		addChild(framerateSprite);
+		FlxG.stage.window.onResize.add((w:Int, h:Int) -> framerateSprite.setScale());
 		SystemInfo.init();
 		#end
 
@@ -190,7 +195,7 @@ class Main extends Sprite
 		FlxG.signals.preStateSwitch.add(onStateSwitch);
 		FlxG.signals.postStateSwitch.add(onStateSwitchPost);
 
-		FlxG.mouse.useSystemCursor = true;
+		FlxG.mouse.useSystemCursor = !MobileControls.mobileC;
 
 		#if MOD_SUPPORT
 		ModsFolder.switchMod(modToLoad.getDefault(Options.lastLoadedMod));
