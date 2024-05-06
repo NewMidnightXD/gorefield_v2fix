@@ -75,11 +75,7 @@ class Main extends Sprite
 
 		instance = this;
 
-		#if !html5 framerateSprite = new funkin.backend.system.framerate.Framerate(); #end
-
 		CrashHandler.init();
-
-		#if !html5 framerateSprite = new funkin.backend.system.framerate.Framerate(); #end
 
 		doPermissionsShit();
 		
@@ -94,11 +90,8 @@ class Main extends Sprite
 		
 		addChild(game = new FunkinGame(gameWidth, gameHeight, MainState, Options.framerate, Options.framerate, skipSplash, startFullscreen));
 
-		#if android FlxG.android.preventDefaultKeys = [BACK]; #end
-
-		#if !html5
-		addChild(framerateSprite);
-		FlxG.stage.window.onResize.add((w:Int, h:Int) -> framerateSprite.setScale());
+		#if (!mobile && !web)
+		addChild(framerateSprite = new funkin.backend.system.framerate.Framerate());
 		SystemInfo.init();
 		#end
 
@@ -195,16 +188,13 @@ class Main extends Sprite
 		FlxG.signals.preStateSwitch.add(onStateSwitch);
 		FlxG.signals.postStateSwitch.add(onStateSwitchPost);
 
-		FlxG.mouse.useSystemCursor = !MobileControls.mobileC;
+		FlxG.mouse.useSystemCursor = true;
 
 		#if MOD_SUPPORT
 		ModsFolder.switchMod(modToLoad.getDefault(Options.lastLoadedMod));
 		#end
 
 		initTransition();
-		#if mobile
-		LimeSystem.allowScreenTimeout = Options.screenTimeOut;
-		#end
 	}
 
 	public static function refreshAssets() {
