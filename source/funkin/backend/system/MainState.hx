@@ -35,7 +35,7 @@ class MainState extends FlxState {
 		initiated = true;
 
 		#if sys
-		CoolUtil.deleteFolder('./.temp/'); // delete temp folder
+		CoolUtil.deleteFolder('.temp/'); // delete temp folder
 		#end
 		Options.save();
 
@@ -79,7 +79,7 @@ class MainState extends FlxState {
 		}
 
 		#if sys
-		sys.FileSystem.createDirectory('./.temp/');
+		sys.FileSystem.createDirectory('.temp/');
 		#if windows Sys.command("attrib +h .temp"); #end
 		#end
 	}
